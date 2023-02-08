@@ -4,11 +4,12 @@ Tested with latest MAME version 0.250
 
 Fully compatible with all MAME versions from 0.196
 
+A very screwed up version of Donkey Kong were you take control of Allen and help him to reach his dream 1 Million points.  
+Allen will vent his joy and frustration via the hundreds of included sound samples. 
 
-Donkey Kong but with Allen instead of Jumpman.  Warning:  This game contains Allen and lots of naughty words.
-The game includes approx 350 sound samples,  mostly obtained from Allen's Twitch channel at https://www.twitch.tv/muscleandfitness
+Allen can select a start level (1, 5, 12 or 17) and be right on pace for that big big big 1 million points.
 
-You have the option to start the game from level 1, 5, 12 or 17 and you will be on pace for that big big big 1 Million points.
+*WARNING: This game contains Allen and some very strong language.
 
 This work wouldn't be possible without the help of Luke @Mr2NuT123 and the co-operation and consent of Allen Staal @muscleandfitness himself.
 
