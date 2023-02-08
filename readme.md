@@ -1,4 +1,4 @@
-# **AllenKong:  It's a screwed up version on Donkey Kong were you take control of Allen and help him to reach his dream 1 Million points. ** #
+# AllenKong:  It's a screwed up version on Donkey Kong were you take control of Allen and help him to reach his dream 1 Million points
 
 Tested with latest MAME version 0.250
 
