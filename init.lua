@@ -1,7 +1,6 @@
 -- Allen Kong
 -- by Jon Wilson (10yard)
 --
--- Tested with latest MAME version 0.247
 -- Fully compatible with all MAME versions from 0.196
 --
 -- Minimum start up arguments:
@@ -9,7 +8,7 @@
 -----------------------------------------------------------------------------------------
 local exports = {}
 exports.name = "allenkong"
-exports.version = "1.4"
+exports.version = "1.5"
 exports.description = "Allen Kong"
 exports.license = "GNU GPLv3"
 exports.author = { name = "Jon Wilson (10yard)" }
@@ -311,8 +310,16 @@ function allenkong.startplugin()
 			end
 			store("smash", _smash)
 
+			-- Does Pauline becomes Stimpy
+			if mode2 == 8 or mode2 == 11 or mode2 == 12 or mode2 == 22 then
+				if rs_mode or last_clip == "renstimpy" then
+					draw_stimpy()
+				end
+			end
+
 			-- stage / level completion -----------------------------------------------------------------------------
 			if mode2 == 8 or mode2 == 22 then
+			
 				if mode2 == 22 then
 					-- stage completion
 					if get("mode2") ~= 22 then
@@ -341,6 +348,11 @@ function allenkong.startplugin()
 			-- Gameplay ---------------------------------------------------------------------------------------------
 			if (mode1 == 1 and mode2 >= 3 and mode2 <=4) or ((mode2 >= 11 and mode2 <= 13) or mode2 == 22 or mode2 == 8) then
 				if jumpy > 0 then
+					-- Does Pauline becomes Stimpy
+					if rs_mode or last_clip == "renstimpy" then
+						draw_stimpy()
+					end
+
 					if sprte >= 120 and sprte <=122 then
 						-- dead
 						jumpx = jumpx + 1
@@ -438,11 +450,6 @@ function allenkong.startplugin()
 						last_clip = random_play("ambient")
 					end
 
-					-- Does Pauleen becomes Stimpy
-					if rs_mode or last_clip == "renstimpy" then
-						draw_graphic(pic_stimpy, 232, 88)
-					end
-
 					-- If ticking over at 1M or KS then it's party time!
 					if (score <= 8000 and get("score") > 992000) or (level == 22 and mode2 ~= 22 and mode2 ~= 8) then
 						if frame > get("celebrate") + 900 then
@@ -465,6 +472,15 @@ function allenkong.startplugin()
 			store("mode2", mode2)
 			store("score", score)
 		end
+	end
+
+	function draw_stimpy()
+		local _y = mem:read_u8(0x6903)
+		local _x = 85
+		if stage == 4 or mode2 == 8 then
+			_x = _x + 12
+		end
+		draw_graphic(pic_stimpy, 267 - _y, _x)
 	end
 
 	function store(var, val)
