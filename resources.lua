@@ -725,11 +725,11 @@ function define_sounds()
 
 	data["ambient"] = {
 		"hello_anyone_there", "hottubclassic", "classic", "ownvideogame", "thefans", "bigfartbrian",
-		"hahahaha",	"hehehehe",	"errr",	"cat", "cough",	"blub",	"gotten_better", "cough2", "gunfight",
+		"hahahaha",	"hehehehe",	"errr",	"cat", "cough",	"blub",	"gotten_better", "cough2", "gunfight", "cough3",
 		"its_me_mario", "finkel", "2viewers", "bigmac", "smile", "hey_olives", "help_popeye", "hills",
 		"pogo_stick", "something", "alltheway", "zookeeper", "raidsomebody", "taxi", "dandruff", "everywhere",
 		"brianfart", "brianfart2", "brianfart3", "brianfart4", "brianfart5", "jcb_fart", "yeahfart",
-		"fart1", "fart2", "fart3", "fart4", "fart5","fart6", "fart7", "fart8", "fartbrian",
+		"fart1", "fart2", "fart3", "fart4", "fart5","fart6", "fart7", "fart8", "fartbrian", "fartohyeah",
 		"burp1", "burp2", "burp3", "burp4", "burp5", "burp6",
 		"continue", "positive", "gimmethatknife", "manamana", "major_tom", "major_tom_2",
 		"btch_tit", "wakeup_brian", "machine_on_fire", "brian_looking", "thistime", "doodedoo", "siren", "shesadk",
@@ -741,7 +741,9 @@ function define_sounds()
 		"what_can_i_do", "canwegetamillion", "inthebeginning", "getoutofhere", "mario_doreme", "pissing", "fartjcb",
 		"ijustwannahavefun", "getoutofhere", "mrmayagi", "want1m", "igotmuscleandfitness", "skypein", "aliendust",
 		"restaurant", "girlfriend", "watchthegame", "looloo", "thatyou", "learnnothing", "forthefans", "422", "5dollar",
-		"renstimpy", "affiliate", "dkrock", "ohhbrian", "steve", "showerchair"
+		"renstimpy", "affiliate", "dkrock", "ohhbrian", "steve", "showerchair", "forachange", "getthemil", "notsure",
+		"ben", "benlovesit", "fartlick", "900k", "everheard", "getofftable", "rugs", "mariorug", "burpyipyip",
+		"phoenix", "20viewers", "jinglebells"
 	}
 
 	data["complete"] = {
@@ -769,7 +771,7 @@ function define_sounds()
 
 	data["bonus800"]= {
 		"unbelieveable", "omg_loveit", "bigbigbig", "nice", "yes", "lick_on_that", "lick_it", "ohyeah_ohyeah", "wow800",
-		"whoopiedo", "take_that", "lick_that", "woohoo", "800baby", "wooo"
+		"whoopiedo", "take_that", "lick_that", "woohoo", "800baby", "wooo", "howmillion"
 	}
 
 	data["jump800"] = {
@@ -777,14 +779,15 @@ function define_sounds()
 		"serphy_brother", "like_it_matt", "like_a_glove", "readwellphil", "serphy", "lakeman_luck", "oh800", "wow800",
 		"lickthatlakeman", "ohrobby", "spaceylovesit", "onpaper", "dukey_loves_it", "hehe_hank", "woohoo", "fack_jump",
 		"ninja", "love_it_wes", "8_straight", "steerlikewieby", "heineken_manouevre", "sheer_magic", "lickthatlakeman2",
-		"philcream", "wooo"
+		"philcream", "wooo", "howyouplay", "howmillion", "howmillion", "laughs"
 	}
 
 	data["jumpdouble"] = {
 		"lakeman", "lukey", "likeserph", "practising", "deserves_million", "phil_loves_it", "lukey_loves",
 		"serphy_brother", "like_it_matt", "like_a_glove", "readwellphil", "serphy", "lakeman_luck", "sckthat",
 		"lick_bit", "bong", "lickthatlakeman", "ohrobby", "spaceylovesit", "onpaper", "dukey_loves_it", "hehe_hank",
-		"woohoo", "fack_jump", "ninja", "love_it_wes", "heineken_manouevre", "sheer_magic", "lickthatlakeman2", "wooo"
+		"woohoo", "fack_jump", "ninja", "love_it_wes", "heineken_manouevre", "sheer_magic", "lickthatlakeman2", "wooo",
+		"howyouplay", "howmillion", "laughs"
 	}
 
 	data["bonus"] = {
@@ -800,12 +803,12 @@ function define_sounds()
 	}
 
 	data["dead"] = {
-		"single_fack", "single_fack2", "fack_this_game"
+		"single_fack", "single_fack2", "fack_this_game", "facofac"
 	}
 
 	data["lastmandead"] = {
 		"fack", "rage", "sonofa", "unluckiest", "getstuffed", "crying", "canubelieve", "fcs", "fsagain",
-		"nogoodatanygame", "neverfails"
+		"nogoodatanygame", "neverfails", "nogood", "omfg"
 	}
 
 	data["gameover"] = {
@@ -815,7 +818,8 @@ function define_sounds()
 	}
 
 	data["hesitated"] = {
-		"hesitated", "short_springs", "got_stuck_fack", "typical", "crying", "canubelieve", "fsagain", "neverfails"
+		"hesitated", "short_springs", "got_stuck_fack", "typical", "crying", "canubelieve", "fsagain", "neverfails",
+		"beatcs", "nogood", "omfg"
 	}
 
 	data["shitscore"] = {

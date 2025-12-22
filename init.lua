@@ -223,7 +223,7 @@ function allenkong.startplugin()
 
 			-- how high screen --------------------------------------------------------------------------------------
 			if mode1 == 3 and mode2 == 8 and get("mode2") ~= 8 then
-				if frame > get("hesitated") + 500 and math.random(1, 3) == 1 then
+				if frame > get("hesitated") + 500 and math.random(1, 4) == 1 then
 					play("fackyou")
 				end
 				-- restore the game startup logic
@@ -237,13 +237,18 @@ function allenkong.startplugin()
 				random_play("highscore")
 			end
 
+			-- name/score saved -------------------------------------------------------------------------------------
+			if mode2 == 0x14 and get("mode2") ~= 0x14 then
+				play("fartohyeah")
+			end
+
 			-- game over --------------------------------------------------------------------------------------------
 			if mode2 == 0x10 and get("mode2") ~= 0x10 and math.random(1,2) then
 				random_play("gameover")
 			end
 
 			-- Toggle Ren and Stimpy mode
-			if to_bits(read(0x7d00))[4] == 1 and frame > get("rs_mode") + 60 then
+			if mode1 == 3 and mode2 > 7 and to_bits(read(0x7d00))[4] == 1 and frame > get("rs_mode") + 60 then
 				rs_mode = not(rs_mode)
 				if rs_mode then
 					play("renstimpy")
@@ -442,11 +447,10 @@ function allenkong.startplugin()
 					 -- Allen's occasional countdown timer
 					if frame > get("countdown") + 300 and (read(0x62b1, 9) or read(0x62b1, 4)) and math.random(1, 8) == 1 then
 						play("poppop_countdown")
-						store("countdown")
-					end
+						store("countdown")					end
 
 					-- If it's been a while since allen said something then we should say something random
-					if frame - get("sound") > 450 then
+					if frame - get("sound") > 575 then
 						last_clip = random_play("ambient")
 					end
 
