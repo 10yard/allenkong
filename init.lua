@@ -8,7 +8,7 @@
 -----------------------------------------------------------------------------------------
 local exports = {}
 exports.name = "allenkong"
-exports.version = "1.6"
+exports.version = "1.8"
 exports.description = "Allen Kong"
 exports.license = "GNU GPLv3"
 exports.author = { name = "Jon Wilson (10yard)" }
@@ -29,6 +29,7 @@ function allenkong.startplugin()
 	local pic_finger = define_finger()
 	local pic_restrict = define_restricted()
 	local pic_balloon = define_balloon()
+	local pic_fart = define_fart()
 	local pic_allen = pic_small
 
 	-- Load characters
@@ -75,6 +76,7 @@ function allenkong.startplugin()
 		if mac ~= nil then
 			if validate_sounds() then
 				scr = mac.screens[":screen"]
+				con = scr.container
 				cpu = mac.devices[":maincpu"]
 				mem = cpu.spaces["program"]
 				mem:write_direct_u32(0x01ea, 0x0000063e)  -- force game to start on the title screen
@@ -96,6 +98,8 @@ function allenkong.startplugin()
 				if _param and string.find(os.getenv("ALLENKONG_PARAMETER"), "22") then
 					level_22 = true
 				end
+
+                con.xscale, con.yscale = 1, 1  -- reset zoom
 			end
 		end
 	end
@@ -212,7 +216,7 @@ function allenkong.startplugin()
 				if input == 16 then
 					write(0x6229, level_select)
 					selected = true
-					if read(0x6385, 5) then play("letsgostart") end
+					if read(0x6385, 5) then random_play("start") end
 					if level_select >= 5 then write(0x622a, 0x73) end  -- update level pattern to point to level 5+
 					write(0x6385, 7)  -- skip the climb scene
 				elseif not selected then
@@ -239,7 +243,7 @@ function allenkong.startplugin()
 
 			-- name/score saved -------------------------------------------------------------------------------------
 			if mode2 == 0x14 and get("mode2") ~= 0x14 then
-				play("fartohyeah")
+				random_play("register_fart")
 			end
 
 			-- game over --------------------------------------------------------------------------------------------
@@ -380,7 +384,7 @@ function allenkong.startplugin()
 								random_play("hesitated")
 								store("hesitated")
 							elseif read(0x6215, 1) then
-								play("stuck_on_ladder")
+								random_play("ladder")
 							else
 								if mode1 == 3 and read(0x6228, 1) then
 									random_play("lastmandead")
@@ -411,6 +415,20 @@ function allenkong.startplugin()
 							draw_graphic(pic_allen, 274 - jumpy, jumpx - 23, true)  -- facing left
 						end
 
+						if frame < get("fartcloud") + 60 then
+							if facing >= 128 then
+								draw_graphic(pic_fart, 266 - jumpy, jumpx - 52, true) -- facing right
+							else
+								draw_graphic(pic_fart, 266 - jumpy, jumpx - 6) -- facing right
+							end
+							if not global_id_dktv and math.random(1,3) == 1 then
+                                -- fart shake effect 1 in 3
+								con.yoffset = ((scr:frame_number() % 4) - 4) / 200
+							end
+						elseif not global_id_dktv then
+							con.yoffset = 0
+						end
+
 						-- freezer mode
 						if mode2 ~= 22 and frame > get("freezer") + 900 then
 							if read(0x63d9, 0) and (read(0x643c) > 0 or read(0x647c) > 0) and math.random(1,3) == 1 then -- not dead & freezer detected
@@ -425,6 +443,14 @@ function allenkong.startplugin()
 							if frame >= get("lukey_legend") + 256 then lukey = true end
 						end
 					end
+
+					-- when on top ladder of conveyors
+                    if frame > get("ninininini") + 900 then
+                        if stage == 2 and mem:read_u8(0x6215) == 1 and jumpy < 128 and math.random(1,4) == 1 then
+                            play("ninininini")
+                            store("ninininini")
+                        end
+                    end
 
 					-- manouevre:  1) avoiding springs or 2) grabbing left hammer on rivets.
 					if frame > get("manoeuvre") + 900 then
@@ -450,7 +476,7 @@ function allenkong.startplugin()
 						store("countdown")					end
 
 					-- If it's been a while since allen said something then we should say something random
-					if frame - get("sound") > 600 then
+					if frame - get("sound") > 850 then
 						last_clip = random_play("ambient")
 					end
 
@@ -590,10 +616,7 @@ function allenkong.startplugin()
 		-- Change player scores and names in ROM.  Each line in the table represents a score entry (0x11m, 0x1c, 0x23 = ALS).
 		high_table = {
 			0x94, 0x77, 0x01, 0x23, 0x24, 0x10, 0x10, 0x09, 0x09, 0x02, 0x09, 0x00, 0x00, 0x10, 0x10, 0x11, 0x1c, 0x23, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x3F, 0x00, 0x00, 0x29, 0x99, 0xF4, 0x76,
-			0x96, 0x77, 0x02, 0x1E, 0x14, 0x10, 0x10, 0x08, 0x05, 0x09, 0x01, 0x00, 0x00, 0x10, 0x10, 0x11, 0x1c, 0x23, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x3F, 0x00, 0x00, 0x91, 0x85, 0xF6, 0x76,
-			0x98, 0x77, 0x03, 0x22, 0x14, 0x10, 0x10, 0x07, 0x09, 0x07, 0x00, 0x00, 0x00, 0x10, 0x10, 0x11, 0x1c, 0x23, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x3F, 0x00, 0x00, 0x70, 0x79, 0xF8, 0x76,
-			0x9A, 0x77, 0x04, 0x24, 0x18, 0x10, 0x10, 0x07, 0x07, 0x05, 0x01, 0x00, 0x00, 0x10, 0x10, 0x11, 0x1c, 0x23, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x3F, 0x00, 0x00, 0x51, 0x77, 0xFA, 0x76,
-			0x9C, 0x77, 0x05, 0x24, 0x18, 0x10, 0x10, 0x07, 0x06, 0x01, 0x00, 0x00, 0x00, 0x10, 0x10, 0x11, 0x1c, 0x23, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x3F, 0x00, 0x00, 0x10, 0x76, 0xFC, 0x76}
+			}
 		for k, v in ipairs(high_table) do
 			mem:write_direct_u8(0x3565 + k - 1, v)
 		end
@@ -647,15 +670,19 @@ function allenkong.startplugin()
 	function validate_sounds()
 		local _path
 		local _valid = true
+		local _count = 0
 		for _, sound_group in pairs(sounds) do
 			for _, sound in pairs(sound_group) do
 				_path = "plugins/allenkong/sounds/" .. sound .. ".mp3"
-				if not file_exists(_path) then
+				if file_exists(_path) then
+					_count = _count + 1
+				else
 					print("Error loading sound file: " .. _path )
 					_valid = false
 				end
 			end
 		end
+		print(_count)
 		return _valid
 	end
 
@@ -668,6 +695,7 @@ function allenkong.startplugin()
 			return
 		end
 		if sound == "renstimpy" then store("renstimpy") end
+		if string.find(sound, "fart") then store("fartcloud") end
 
 		if is_pi then
 			io.popen("mpg321 -q plugins/allenkong/sounds/"..sound..".mp3 &")
