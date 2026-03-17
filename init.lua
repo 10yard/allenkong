@@ -172,7 +172,7 @@ function allenkong.startplugin()
 			end
 			if get("mode2") == 1 and mode2 ~= 1 then
 				-- clear the version text
-				write_ram_message(0x77be, "         ")
+				write_ram_message(0x77be, "          ")
 			end
 
 			if level_22 then
@@ -355,7 +355,7 @@ function allenkong.startplugin()
 			end
 
 			-- Gameplay ---------------------------------------------------------------------------------------------
-			if (mode1 == 1 and mode2 >= 3 and mode2 <=4) or ((mode2 >= 11 and mode2 <= 13) or mode2 == 22 or mode2 == 8) then
+			if (mode1 == 1 and mode2 >= 3 and mode2 <=4) or ((mode2 >= 11 and mode2 <= 14) or mode2 == 22 or mode2 == 8) then
 				if jumpy > 0 then
 					-- Does Pauline becomes Stimpy
 					if rs_mode or last_clip == "renstimpy" then
@@ -375,7 +375,7 @@ function allenkong.startplugin()
 						if jumpx <= 150 then
 							draw_graphic(pic_allen, 273 - jumpy, jumpx - 23) -- facing right
 						else
-							draw_graphic(pic_allen, 273 - jumpy, jumpx - 25, true) -- facing left
+							draw_graphic(pic_allen, 273 - jumpy, jumpx - 24, true) -- facing left
 						end
 
 						if frame > get("dead") + 300 then
