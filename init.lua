@@ -8,7 +8,7 @@
 -----------------------------------------------------------------------------------------
 local exports = {}
 exports.name = "allenkong"
-exports.version = "1.91"
+exports.version = "1.92"
 exports.description = "Allen Kong"
 exports.license = "GNU GPLv3"
 exports.author = { name = "Jon Wilson (10yard)" }
@@ -152,7 +152,7 @@ function allenkong.startplugin()
 						store("logo")
 						random_index = math.random(1, #texts)
 					end
-					write_ram_message(0x777c, "         []2025         ")
+					write_ram_message(0x777c, "         []2026         ")
 					write_ram_message(0x777d, texts[random_index])
 				end
 			end
@@ -246,10 +246,11 @@ function allenkong.startplugin()
 				random_play("register_fart")
 			end
 
+            -- Not enough time to get words out after last man dead.  Merge these with that.
 			-- game over --------------------------------------------------------------------------------------------
-			if mode2 == 0x10 and get("mode2") ~= 0x10 and math.random(1,2) then
-				random_play("gameover")
-			end
+			--if mode2 == 0x10 and get("mode2") ~= 0x10 and math.random(1,2) then
+			--	random_play("gameover")
+			--end
 
 			-- Toggle Ren and Stimpy mode
 			if mode1 == 3 and mode2 > 7 and to_bits(read(0x7d00))[4] == 1 and frame > get("rs_mode") + 60 then
@@ -423,7 +424,7 @@ function allenkong.startplugin()
 							end
 							if not global_id_dktv and math.random(1,3) == 1 then
                                 -- fart shake effect 1 in 3
-								con.yoffset = ((scr:frame_number() % 4) - 4) / 200
+								con.yoffset = ((scr:frame_number() % 4) - 4) / 160
 							end
 						elseif not global_id_dktv then
 							con.yoffset = 0
@@ -446,7 +447,7 @@ function allenkong.startplugin()
 
 					-- when on top ladder of conveyors
                     if frame > get("ninininini") + 900 then
-                        if stage == 2 and mem:read_u8(0x6215) == 1 and jumpy < 128 and math.random(1,4) == 1 then
+                        if stage == 2 and mem:read_u8(0x6215) == 1 and jumpy < 121 and math.random(1,60) == 1 then
                             play("ninininini")
                             store("ninininini")
                         end
@@ -476,7 +477,7 @@ function allenkong.startplugin()
 						store("countdown")					end
 
 					-- If it's been a while since allen said something then we should say something random
-					if frame - get("sound") > 850 then
+					if frame - get("sound") > 900 then
 						last_clip = random_play("ambient")
 					end
 
